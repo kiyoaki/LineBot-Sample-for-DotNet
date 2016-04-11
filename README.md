@@ -1,5 +1,3 @@
-# LineBotNet
-
 ## Deploy MessageCollector to Azure Functions
 
 Copy following C# script to your Function
