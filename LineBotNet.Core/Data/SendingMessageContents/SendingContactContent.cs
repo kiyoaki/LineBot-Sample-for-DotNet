@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class ContactContent : SendingMessageContent
+    public class SendingContactContent : SendingMessageContent
     {
         private readonly string _mid;
         private readonly string _displayName;
 
-        public ContactContent(string mid, string displayName)
+        public SendingContactContent(string mid, string displayName)
         {
             if (mid == null)
             {

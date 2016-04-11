@@ -2,10 +2,13 @@
 
 namespace LineBotNet.Core.Data
 {
-    public class ReceivingMessageContent
+    public class ReceivingTextContent
     {
         [JsonProperty("id")]
         public long Id { get; set; }
+
+        [JsonProperty("from")]
+        public string From { get; set; }
 
         [JsonProperty("contentType")]
         public ContentType ContentType { get; set; }

@@ -4,13 +4,13 @@ using Newtonsoft.Json;
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class RichMessageContent : SendingMessageContent
+    public class SendingRichMessageContent : SendingMessageContent
     {
         private readonly string _downloadUrl;
         private readonly string _altText;
         private readonly RichMessage _richMessage;
 
-        public RichMessageContent(string downloadUrl, string altText, RichMessage richMessage)
+        public SendingRichMessageContent(string downloadUrl, string altText, RichMessage richMessage)
         {
             if (downloadUrl == null)
             {

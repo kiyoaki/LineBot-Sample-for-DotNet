@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LineBotNet.Core.Data.SendingMessageContents;
 using Newtonsoft.Json;
 
@@ -8,13 +9,13 @@ namespace LineBotNet.Core.Data
     public class SendingMessage
     {
         [JsonProperty("to")]
-        public string[] To { get; set; }
+        public List<string> To { get; set; }
 
         [JsonProperty("toChannel")]
         public int ToChannel => 1383378250;
 
         [JsonProperty("eventType")]
-        public long EventType => 138311608800106203;
+        public string EventType => "138311608800106203";
 
         [JsonProperty("content")]
         public Dictionary<string, object> Content { get; set; }
@@ -22,6 +23,32 @@ namespace LineBotNet.Core.Data
         public void SetSingleContent(SendingMessageContent content)
         {
             Content = content.Create();
+        }
+
+        public void AddTo(string mid)
+        {
+            if (To == null)
+            {
+                To = new List<string>();
+            }
+
+            if (!To.Contains(mid))
+            {
+                To.Add(mid);
+            }
+        }
+
+        public void AddTo(string[] mids)
+        {
+            if (To == null)
+            {
+                To = new List<string>();
+            }
+
+            foreach (var mid in mids.Where(x => !To.Contains(x)))
+            {
+                To.Add(mid);
+            }
         }
 
         public void AddMultipleContent(SendingMessageContent content)
@@ -43,5 +70,20 @@ namespace LineBotNet.Core.Data
 
             list.Add(content.Create());
         }
+    }
+
+    public class SendingMessageResponse
+    {
+        [JsonProperty("failed")]
+        public string[] Failed { get; set; }
+
+        [JsonProperty("messageId")]
+        public string MessageId { get; set; }
+
+        [JsonProperty("timestamp")]
+        public long Timestamp { get; set; }
+
+        [JsonProperty("version")]
+        public double Version { get; set; }
     }
 }

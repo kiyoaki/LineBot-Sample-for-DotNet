@@ -2,13 +2,13 @@
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class StickerContent : SendingMessageContent
+    public class SendingStickerContent : SendingMessageContent
     {
         private readonly int _stickerPackageId;
         private readonly int _stickerId;
         private readonly int _stickerVersion;
 
-        public StickerContent(int stickerPackageId, int stickerId, int stickerVersion)
+        public SendingStickerContent(int stickerPackageId, int stickerId, int stickerVersion)
         {
             _stickerPackageId = stickerPackageId;
             _stickerId = stickerId;

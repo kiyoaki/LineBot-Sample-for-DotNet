@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class LocationContent : SendingMessageContent
+    public class SendingLocationContent : SendingMessageContent
     {
         private readonly string _text;
         private readonly Location _location;
 
-        public LocationContent(string text, Location location)
+        public SendingLocationContent(string text, Location location)
         {
             if (location == null)
             {

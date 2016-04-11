@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class VideoContent : SendingMessageContent
+    public class SendingImageContent : SendingMessageContent
     {
         private readonly string _originalContentUrl;
         private readonly string _previewImageUrl;
 
-        public VideoContent(string originalContentUrl, string previewImageUrl)
+        public SendingImageContent(string originalContentUrl, string previewImageUrl)
         {
             if (originalContentUrl == null)
             {
@@ -19,7 +19,7 @@ namespace LineBotNet.Core.Data.SendingMessageContents
             _previewImageUrl = previewImageUrl;
         }
 
-        public override ContentType ContentType => ContentType.Video;
+        public override ContentType ContentType => ContentType.Image;
 
         public override Dictionary<string, object> Create()
         {

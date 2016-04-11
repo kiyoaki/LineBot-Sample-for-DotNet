@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class ImageContent : SendingMessageContent
+    public class SendingAudioContent : SendingMessageContent
     {
         private readonly string _originalContentUrl;
-        private readonly string _previewImageUrl;
+        private readonly int _audioLengthMilliseconds;
 
-        public ImageContent(string originalContentUrl, string previewImageUrl)
+        public SendingAudioContent(string originalContentUrl, int audioLengthMilliseconds)
         {
             if (originalContentUrl == null)
             {
@@ -16,19 +16,21 @@ namespace LineBotNet.Core.Data.SendingMessageContents
             }
 
             _originalContentUrl = originalContentUrl;
-            _previewImageUrl = previewImageUrl;
+            _audioLengthMilliseconds = audioLengthMilliseconds;
         }
 
-        public override ContentType ContentType => ContentType.Image;
+        public override ContentType ContentType => ContentType.Audio;
 
         public override Dictionary<string, object> Create()
         {
             return new Dictionary<string, object>
             {
-                ["contentType"] = (int)ContentType.Image,
-                ["toType"] = 1,
+                ["contentType"] = (int)ContentType.Audio,
                 ["originalContentUrl"] = _originalContentUrl,
-                ["previewImageUrl"] = _previewImageUrl
+                ["contentMetada"] = new Dictionary<string, string>
+                {
+                    ["AUDLEN"] = _audioLengthMilliseconds.ToString()
+                }
             };
         }
     }

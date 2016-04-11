@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace LineBotNet.Core.Data.SendingMessageContents
 {
-    public class TextContent : SendingMessageContent
+    public class SendingTextContent : SendingMessageContent
     {
         private readonly string _text;
 
-        public TextContent(string text)
+        public SendingTextContent(string text)
         {
             if (text == null)
             {
