@@ -6,6 +6,8 @@ Edit your WebApp App settings like a following
 
 ![App settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/WebJobSettingsForTranslateBot.PNG "App settings")
 
+[Getting started using the Translator API](https://www.microsoft.com/en-us/translator/getstarted.aspx "Getting started using the Translator API")
+
 Add your WebJob global IP address to yout LINE Channels Server IP Whitelist
 
 If LINE Channels Server IP Whitelist has setting error, LINE Sending messages API response status code is 403 and content is like a following.
