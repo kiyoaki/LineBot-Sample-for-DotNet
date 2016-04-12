@@ -14,8 +14,6 @@ Edit your Function Integrate Settings to output Azure Storage queue
 
 ![Azure Function Integrate Settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/AzureFunctionsIntegrateSettings.PNG "Azure Function Integrate Settings")
 
-Add your Function global IP address to yout LINE Channels Server IP Whitelist
-
 ## Deploy MessageSender to Azure WebJobs
 
 Publish [LineBotMessageWebJob Project](https://github.com/kiyoaki/LineBotNet/tree/master/LineBotMessageWebJob "LineBotMessageWebJob Project") as WebJob to your WebApps
