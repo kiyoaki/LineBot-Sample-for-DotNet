@@ -29,3 +29,5 @@ If LINE Channels Server IP Whitelist has setting error, LINE Sending messages AP
 ```javascript
 {"statusCode":"427","statusMessage":"Your ip address [XXX.XXX.XXX.XXX] is not allowed to access this API."}
 ```
+
+You can confirm this response content in WebJob console.
