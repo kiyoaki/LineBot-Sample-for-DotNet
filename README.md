@@ -1,3 +1,7 @@
+## Create LINE BOT API Trial Account
+
+[BOT API Trial Account](https://business.line.me/ja/products/4/introduction "BOT API Trial Account")
+
 ## Deploy MessageCollector to Azure Functions
 
 Copy following C# script to your Function
