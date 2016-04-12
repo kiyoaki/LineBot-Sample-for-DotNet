@@ -20,7 +20,7 @@ Publish [LineBotMessageWebJob Project](https://github.com/kiyoaki/LineBotNet/tre
 
 Edit your WebApp App settings like a following
 
-![Azure Function Integrate Settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/WebJobSettings.PNG "Azure Function Integrate Settings")
+![App settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/WebJobSettings.PNG "App settings")
 
 Add your WebJob global IP address to yout LINE Channels Server IP Whitelist
 
