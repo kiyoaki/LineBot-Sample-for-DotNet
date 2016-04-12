@@ -44,7 +44,7 @@ namespace LineBotNet.Core.ApiClient
                     var result = await httpClient.SendAsync(requestMessage);
                     if (!result.IsSuccessStatusCode)
                     {
-                        throw new LineRequestException(result);
+                        throw new RequestException(result);
                     }
                 }
             }
@@ -77,7 +77,7 @@ namespace LineBotNet.Core.ApiClient
 
                     if (!result.IsSuccessStatusCode)
                     {
-                        throw new LineRequestException(result);
+                        throw new RequestException(result);
                     }
 
                     var response = JsonConvert.DeserializeObject<T>(responseContent);

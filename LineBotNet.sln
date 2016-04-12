@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineBotMessageWebJob", "Lin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineBotNet.Core", "LineBotNet.Core\LineBotNet.Core.csproj", "{CCBF3450-5317-4F2D-B916-E9EB62FDE013}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineTranslateBot", "LineTranslateBot\LineTranslateBot.csproj", "{0969B30A-8B37-477D-A763-63451C35E660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CCBF3450-5317-4F2D-B916-E9EB62FDE013}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCBF3450-5317-4F2D-B916-E9EB62FDE013}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCBF3450-5317-4F2D-B916-E9EB62FDE013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0969B30A-8B37-477D-A763-63451C35E660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0969B30A-8B37-477D-A763-63451C35E660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0969B30A-8B37-477D-A763-63451C35E660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0969B30A-8B37-477D-A763-63451C35E660}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
