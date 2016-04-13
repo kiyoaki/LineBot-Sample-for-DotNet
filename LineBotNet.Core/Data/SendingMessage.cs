@@ -51,6 +51,7 @@ namespace LineBotNet.Core.Data
             }
         }
 
+        /* TODO: Use this method, LINE response is {"statusCode":"422","statusMessage":"contentType is not valid : 0"}
         public void AddMultipleContent(SendingMessageContent content)
         {
             if (Content == null)
@@ -70,6 +71,7 @@ namespace LineBotNet.Core.Data
 
             list.Add(content.Create());
         }
+        */
     }
 
     public class SendingMessageResponse

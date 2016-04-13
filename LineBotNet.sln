@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineBotNet.Core", "LineBotN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineTranslateBot", "LineTranslateBot\LineTranslateBot.csproj", "{0969B30A-8B37-477D-A763-63451C35E660}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineSearchDotNetCoreFxRepoBot", "LineSearchDotNetCoreFxRepoBot\LineSearchDotNetCoreFxRepoBot.csproj", "{145EC360-7652-4C9A-9C49-1F9DD7638838}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0969B30A-8B37-477D-A763-63451C35E660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0969B30A-8B37-477D-A763-63451C35E660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0969B30A-8B37-477D-A763-63451C35E660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145EC360-7652-4C9A-9C49-1F9DD7638838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145EC360-7652-4C9A-9C49-1F9DD7638838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145EC360-7652-4C9A-9C49-1F9DD7638838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145EC360-7652-4C9A-9C49-1F9DD7638838}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,5 +13,7 @@
         public static string MsTranslateApiClientId => Setting("MsTranslateApiClientId");
 
         public static string MsTranslateApiClientSecret => Setting("MsTranslateApiClientSecret");
+
+        public static string GitHubAccessToken => Setting("GitHubAccessToken");
     }
 }

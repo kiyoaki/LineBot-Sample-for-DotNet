@@ -72,6 +72,8 @@
     <Compile Include="Data\SendingMessageContents\SendingTextContent.cs" />
     <Compile Include="Data\SendingMessageContents\SendingVideoContent.cs" />
     <Compile Include="Data\UserProfile.cs" />
+    <Compile Include="GitHubApi\Data\GitHubSearchResult.cs" />
+    <Compile Include="GitHubApi\GitHubSearchApi.cs" />
     <Compile Include="MicrosoftApi\AdmAccessToken.cs" />
     <Compile Include="MicrosoftApi\AdmAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

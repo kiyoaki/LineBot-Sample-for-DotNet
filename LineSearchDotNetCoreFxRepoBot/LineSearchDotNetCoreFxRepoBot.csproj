@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0969B30A-8B37-477D-A763-63451C35E660}</ProjectGuid>
+    <ProjectGuid>{145EC360-7652-4C9A-9C49-1F9DD7638838}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LineTranslateBot</RootNamespace>
-    <AssemblyName>LineTranslateBot</AssemblyName>
+    <RootNamespace>LineSearchDotNetCoreFxRepoBot</RootNamespace>
+    <AssemblyName>LineSearchDotNetCoreFxRepoBot</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -91,6 +91,7 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\LineBotMessageWebJob - Web Deploy.pubxml" />
     <None Include="Properties\webjob-publish-settings.json" />
+    <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LineBotNet.Core\LineBotNet.Core.csproj">
@@ -99,7 +100,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.11\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.11\tools\webjobs.targets')" />
+  <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.10\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.10\tools\webjobs.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
