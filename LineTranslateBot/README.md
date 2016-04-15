@@ -6,6 +6,14 @@ Edit your WebApp App settings like a following
 
 ![App settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/WebJobSettingsForTranslateBot.PNG "App settings")
 
+| key                                   | value                                                                                                 |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| LineChannelId                         | Channel ID ([LINE Channels Basic information](https://business.line.me/services/))                    |
+| LineChannelSecret                     | Channel Secret ([LINE Channels Basic information](https://business.line.me/services/))                |
+| LineTrustedUserWithAcl                | MID ([LINE Channels Basic information](https://business.line.me/services/))                           |
+| MsTranslateApiClientId                | Client ID ([Azure Marketplace applications](https://datamarket.azure.com/developer/applications))     |
+| MsTranslateApiClientSecret            | Client Secret ([Azure Marketplace applications](https://datamarket.azure.com/developer/applications)) |
+
 [Getting started using the Translator API](https://www.microsoft.com/en-us/translator/getstarted.aspx "Getting started using the Translator API")
 
 Add your WebJob global IP address to yout LINE Channels Server IP Whitelist
