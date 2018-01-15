@@ -28,7 +28,7 @@ public static class LineRequest
         content = null;
 
         IEnumerable<string> headers;
-        if (!req.Headers.TryGetValues("X-LINE-CHANNELSIGNATURE", out headers))
+        if (!req.Headers.TryGetValues("X-Line-Signature", out headers))
         {
             return false;
         }
