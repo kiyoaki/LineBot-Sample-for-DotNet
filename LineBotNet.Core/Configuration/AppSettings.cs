@@ -4,12 +4,6 @@
     {
         protected AppSettings() { }
 
-        public static string LineChannelId => Setting("LineChannelId");
-
-        public static string LineChannelSecret => Setting("LineChannelSecret");
-
-        public static string LineTrustedUserWithAcl => Setting("LineTrustedUserWithAcl");
-
         public static string MsTranslateApiClientId => Setting("MsTranslateApiClientId");
 
         public static string MsTranslateApiClientSecret => Setting("MsTranslateApiClientSecret");

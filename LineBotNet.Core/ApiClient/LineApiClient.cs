@@ -32,8 +32,6 @@ namespace LineBotNet.Core.ApiClient
                     RequestUri = uri
                 })
                 {
-                    SetLineApiHeaders(requestMessage);
-
                     if (json != null)
                     {
                         requestMessage.Content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -63,8 +61,6 @@ namespace LineBotNet.Core.ApiClient
                     RequestUri = uri
                 })
                 {
-                    SetLineApiHeaders(requestMessage);
-
                     if (json != null)
                     {
                         requestMessage.Content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -100,9 +96,7 @@ namespace LineBotNet.Core.ApiClient
 
         private static void SetLineApiHeaders(HttpRequestMessage requestMessage)
         {
-            requestMessage.Headers.Add("X-Line-ChannelID", AppSettings.LineChannelId);
-            requestMessage.Headers.Add("X-Line-ChannelSecret", AppSettings.LineChannelSecret);
-            requestMessage.Headers.Add("X-Line-Trusted-User-With-ACL", AppSettings.LineTrustedUserWithAcl);
+            // TODO: Add Authorization: Bearer
         }
     }
 }
