@@ -21,7 +21,7 @@ public static void Run(HttpRequestMessage req, TraceWriter log, out string lineB
 
 public static class LineRequest
 {
-    private const string ChannelSecret = "XXXXXXXXXXXXXXXXXXXXX";
+    private const string ChannelSecret = System.Environment.GetEnvironmentVariable("ChannelSecret", EnvironmentVariableTarget.Process);
 
     public static bool IsValid(HttpRequestMessage req, out string content)
     {
