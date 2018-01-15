@@ -16,7 +16,7 @@ namespace LineBotNet.Core.ApiClient
 
         private const string EndpointUrl = "https://trialbot-api.line.me/v1/events";
 
-        public async Task<SendingMessageResponse> Post(SendingMessage message)
+        public Task<SendingMessageResponse> Post(SendingMessage message)
         {
             if (message?.Content == null || !message.Content.Any())
             {
@@ -25,7 +25,7 @@ namespace LineBotNet.Core.ApiClient
 
             var uri = new Uri(EndpointUrl);
             var body = JsonConvert.SerializeObject(message);
-            return await SendAsync<SendingMessageResponse>(uri, HttpMethod.Post, body);
+            return SendAsync<SendingMessageResponse>(uri, HttpMethod.Post, body);
         }
     }
 }

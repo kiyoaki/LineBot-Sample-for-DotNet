@@ -1,18 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using LineBotNet.Core.ApiClient;
+﻿using LineBotNet.Core.ApiClient;
 using LineBotNet.Core.Data;
 using LineBotNet.Core.Data.SendingMessageContents;
 using Microsoft.Azure.WebJobs;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LineBotMessageWebJob
 {
     public class Functions
     {
-        public static void ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
+        public async static Task ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
         {
             log.WriteLine(message);
 
@@ -20,7 +20,7 @@ namespace LineBotMessageWebJob
 
             if (data?.Results != null)
             {
-                Task.WhenAll(data.Results.Select(lineMessage =>
+                foreach (var lineMessage in data.Results)
                 {
                     if (lineMessage.Content != null)
                     {
@@ -41,7 +41,7 @@ namespace LineBotMessageWebJob
                                 sendingMessage.AddTo(lineMessage.TextContent.From);
                                 sendingMessage.SetSingleContent(new SendingTextContent(lineMessage.TextContent.Text));
 
-                                return new SendMessageApi(log).Post(sendingMessage);
+                                await new SendMessageApi(log).Post(sendingMessage);
                             }
                             break;
 
@@ -49,9 +49,7 @@ namespace LineBotMessageWebJob
                             log.WriteLine("Not implemented contentType: " + lineMessage.ContentType);
                             break;
                     }
-
-                    return Task.FromResult((SendingMessageResponse)null);
-                })).Wait();
+                }
             }
         }
     }
