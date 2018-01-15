@@ -8,11 +8,9 @@ Copy following C# script to your Function
 
 [run.csx](https://github.com/kiyoaki/LineBotNet/blob/master/LineBotMessageCollector/run.csx "run.csx")
 
-Edit following part in this code.
+Edit following part in ChannelSecret settings.
 
-```csharp
-private const string ChannelSecret = "XXXXXXXXXXXXXXXXXXXXX";
-```
+![Azure Function ChannelSecret Settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/ChannelSecret.PNG "Azure Function ChannelSecret Settings")
 
 Edit your Function Integrate Settings to output Azure Storage queue
 
