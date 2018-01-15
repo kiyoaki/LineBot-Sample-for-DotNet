@@ -7,16 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-public static void Run(HttpRequestMessage req, TraceWriter log, out string lineBotQueueItem)
+public static string Run(HttpRequestMessage req, TraceWriter log)
 {
     string content;
     if (!LineRequest.IsValid(req, out content))
     {
-        lineBotQueueItem = null;
-        return;
+        return null;
     }
 
-    lineBotQueueItem = content;
+    return content;
 }
 
 public static class LineRequest
