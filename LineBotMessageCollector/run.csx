@@ -7,39 +7,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-public static string Run(HttpRequestMessage req, TraceWriter log)
+public static async Task<string> Run(HttpRequestMessage req, TraceWriter log)
 {
-    string content;
-    if (!LineRequest.IsValid(req, out content))
-    {
-        return null;
-    }
-
-    return content;
+    return await LineRequest.Parse(req);
 }
 
 public static class LineRequest
 {
-    private const string ChannelSecret = System.Environment.GetEnvironmentVariable("ChannelSecret", EnvironmentVariableTarget.Process);
+    private static readonly string ChannelSecret = System.Environment.GetEnvironmentVariable("ChannelSecret", EnvironmentVariableTarget.Process);
 
-    public static bool IsValid(HttpRequestMessage req, out string content)
+    public static async Task<string> Parse(HttpRequestMessage req)
     {
-        content = null;
-
         IEnumerable<string> headers;
         if (!req.Headers.TryGetValues("X-Line-Signature", out headers))
         {
-            return false;
+            return null;
         }
 
         var channelSignature = headers.FirstOrDefault();
         if (channelSignature == null)
         {
-            return false;
+            return null;
         }
 
         var secret = Encoding.UTF8.GetBytes(ChannelSecret);
-        content = req.Content.ReadAsStringAsync().Result;
+        var content = await req.Content.ReadAsStringAsync();
         var body = Encoding.UTF8.GetBytes(content);
 
         using (var hmacsha256 = new HMACSHA256(secret))
@@ -47,10 +39,10 @@ public static class LineRequest
             var signature = Convert.ToBase64String(hmacsha256.ComputeHash(body));
             if (channelSignature != signature)
             {
-                return false;
+                return null;
             }
         }
 
-        return true;
+        return content;
     }
 }
