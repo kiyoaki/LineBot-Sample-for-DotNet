@@ -1,4 +1,4 @@
-## Create LINE LINE Messaging API Account
+## Create LINE Messaging API Account
 
 [LINE Messaging API](https://developers.line.me/ "LINE Messaging API")
 
