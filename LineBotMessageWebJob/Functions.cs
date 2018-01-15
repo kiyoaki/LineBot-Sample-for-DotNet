@@ -15,8 +15,16 @@ namespace LineBotMessageWebJob
         public async static Task ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
         {
             log.WriteLine(message);
-
-            var data = JsonConvert.DeserializeObject<LineMessageObject>(message);
+            LineMessageObject data;
+            try
+            {
+                data = JsonConvert.DeserializeObject<LineMessageObject>(message);
+            }
+            catch (Exception ex)
+            {
+                log.WriteLine("Ignore deserialization error: " + ex.ToString());
+                return;
+            }
 
             if (data?.Results != null)
             {
