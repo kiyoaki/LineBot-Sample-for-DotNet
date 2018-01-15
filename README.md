@@ -1,6 +1,6 @@
-## Create LINE Messaging API Account
+## Create LINE Developers Account
 
-[LINE Messaging API](https://developers.line.me/ "LINE Messaging API")
+[LINE Developers](https://developers.line.me/ "LINE Developers")
 
 ## Deploy MessageCollector to Azure Functions
 
@@ -8,9 +8,9 @@ Copy following C# script to your Function
 
 [run.csx](https://github.com/kiyoaki/LineBotNet/blob/master/LineBotMessageCollector/run.csx "run.csx")
 
-Edit following part in ChannelSecret settings.
+Edit following part in Azure Function App Settings.
 
-![Azure Function ChannelSecret Settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/ChannelSecret.PNG "Azure Function ChannelSecret Settings")
+![Azure Function App Settings](https://raw.githubusercontent.com/kiyoaki/LineBotNet/master/Images/ChannelSecret.PNG "Azure Function App Settings")
 
 Edit your Function Integrate Settings to output Azure Storage queue
 
