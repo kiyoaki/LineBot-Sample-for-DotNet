@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LineBotNet.Core.ApiClient;
-using LineBotNet.Core.Data;
-using LineBotNet.Core.Data.SendingMessageContents;
 using LineBotNet.Core.GitHubApi;
+using LineMessaging;
 using Microsoft.Azure.WebJobs;
 using Newtonsoft.Json;
 
@@ -13,63 +12,62 @@ namespace LineSearchDotNetCoreFxRepoBot
 {
     public class Functions
     {
-        public static void ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
+        private static readonly LineOAuthClient oAuthClient =
+            new LineOAuthClient(ConfigurationManager.AppSettings["ChannelId"], ConfigurationManager.AppSettings["ChannelSecret"]);
+
+        private static LineOAuthTokenResponse tokenResponse;
+
+        public static async Task ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
         {
             log.WriteLine(message);
 
-            var data = JsonConvert.DeserializeObject<LineMessageObject>(message);
+            var data = JsonConvert.DeserializeObject<LineWebhookContent>(message);
 
-            if (data?.Results != null)
+            if (data?.Events != null)
             {
-                Task.WhenAll(data.Results.Select(lineMessage =>
-               {
-                   if (lineMessage.Content != null)
-                   {
-                       log.WriteLine("Content: " + string.Join(Environment.NewLine,
-                           lineMessage.Content.Select(x => $"{x.Key}={x.Value}")));
-                   }
+                foreach (var webhookEvent in data.Events)
+                {
+                    log.WriteLine("event type: " + webhookEvent.Type);
+                    switch (webhookEvent.Type)
+                    {
+                        case WebhookRequestEventType.Message:
+                            if (webhookEvent.Message.Type == MessageType.Text)
+                            {
+                                log.WriteLine("text: " + webhookEvent.Message.Text);
 
-                   log.WriteLine("ContentType: " + lineMessage.ContentType);
-                   switch (lineMessage.ContentType)
-                   {
-                       case ContentType.Text:
-                           if (lineMessage.TextContent != null)
-                           {
-                               log.WriteLine("text: " + lineMessage.TextContent.Text);
+                                if (tokenResponse == null || tokenResponse.ExpiresIn < DateTime.Now.AddDays(-1))
+                                {
+                                    tokenResponse = await oAuthClient.GetAccessToken();
+                                }
 
-                               var sendingMessage = new SendingMessage();
+                                var client = new LineMessagingClient(tokenResponse.AccessToken);
 
-                               sendingMessage.AddTo(lineMessage.TextContent.From);
+                                var result = await new GitHubSearchApi(log).Search(webhookEvent.Message.Text);
+                                if (result == null || !result.Any())
+                                {
+                                    await client.PushMessage(webhookEvent.Source.UserId, "There is no content.");
+                                    return;
+                                }
 
-                               //TODO: Use Sending multiple messages, LINE response is {"statusCode":"422","statusMessage":"contentType is not valid : 0"}
-                               var sendingMessageApi = new SendMessageApi(log);
-                               var result = new GitHubSearchApi(log).Search(lineMessage.TextContent.Text).Result;
-                               if (result == null || !result.Any())
-                               {
-                                   sendingMessage.SetSingleContent(new SendingTextContent("There is no content."));
-                                   return Task.WhenAll(sendingMessageApi.Post(sendingMessage));
-                               }
-                               return Task.WhenAll(result.Where(x => !string.IsNullOrEmpty(x))
-                                   .Select(s =>
-                                   {
-                                       if (s.Length > 1024)
-                                       {
-                                           s = s.Substring(0, 1024);
-                                       }
+                                foreach (var s in result.Where(x => !string.IsNullOrEmpty(x)))
+                                {
+                                    if (s.Length > 1024)
+                                    {
+                                        await client.PushMessage(webhookEvent.Source.UserId, s.Substring(0, 1024));
+                                    }
+                                    else
+                                    {
+                                        await client.PushMessage(webhookEvent.Source.UserId, s);
+                                    }
+                                }
+                            }
+                            break;
 
-                                       sendingMessage.SetSingleContent(new SendingTextContent(s));
-                                       return sendingMessageApi.Post(sendingMessage);
-                                   }));
-                           }
-                           break;
-
-                       default:
-                           log.WriteLine("Not implemented contentType: " + lineMessage.ContentType);
-                           break;
-                   }
-
-                   return Task.FromResult((SendingMessageResponse[])null);
-               })).Wait();
+                        default:
+                            log.WriteLine("Not implemented event type: " + webhookEvent.Type);
+                            break;
+                    }
+                }
             }
         }
     }

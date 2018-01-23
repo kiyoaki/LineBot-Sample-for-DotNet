@@ -1,65 +1,62 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using LineBotNet.Core;
-using LineBotNet.Core.ApiClient;
-using LineBotNet.Core.Data;
-using LineBotNet.Core.Data.SendingMessageContents;
+﻿using LineBotNet.Core;
+using LineMessaging;
 using Microsoft.Azure.WebJobs;
 using Newtonsoft.Json;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace LineTranslateBot
 {
     public class Functions
     {
-        public static void ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
+        private static readonly LineOAuthClient oAuthClient =
+            new LineOAuthClient(ConfigurationManager.AppSettings["ChannelId"], ConfigurationManager.AppSettings["ChannelSecret"]);
+
+        private static LineOAuthTokenResponse tokenResponse;
+
+        public static async Task ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
         {
             log.WriteLine(message);
 
-            var data = JsonConvert.DeserializeObject<LineMessageObject>(message);
+            var data = JsonConvert.DeserializeObject<LineWebhookContent>(message);
 
-            if (data?.Results != null)
+            if (data?.Events != null)
             {
-                Task.WhenAll(data.Results.Select(lineMessage =>
+                foreach (var webhookEvent in data.Events)
                 {
-                    if (lineMessage.Content != null)
+                    log.WriteLine("event type: " + webhookEvent.Type);
+                    switch (webhookEvent.Type)
                     {
-                        log.WriteLine("Content: " + string.Join(Environment.NewLine,
-                            lineMessage.Content.Select(x => $"{x.Key}={x.Value}")));
-                    }
-
-                    log.WriteLine("ContentType: " + lineMessage.ContentType);
-                    switch (lineMessage.ContentType)
-                    {
-                        case ContentType.Text:
-                            if (lineMessage.TextContent != null)
+                        case WebhookRequestEventType.Message:
+                            if (webhookEvent.Message.Type == MessageType.Text)
                             {
-                                log.WriteLine("text: " + lineMessage.TextContent.Text);
+                                log.WriteLine("text: " + webhookEvent.Message.Text);
 
-                                var sendingMessage = new SendingMessage();
+                                if (tokenResponse == null || tokenResponse.ExpiresIn < DateTime.Now.AddDays(-1))
+                                {
+                                    tokenResponse = await oAuthClient.GetAccessToken();
+                                }
 
-                                sendingMessage.AddTo(lineMessage.TextContent.From);
+                                var client = new LineMessagingClient(tokenResponse.AccessToken);
 
                                 var translateApi = new TranslateApi();
-                                var translated = translateApi.Translate(lineMessage.TextContent.Text);
+                                var translated = translateApi.Translate(webhookEvent.Message.Text);
                                 if (string.IsNullOrEmpty(translated))
                                 {
                                     throw new ApplicationException("reply message is empty");
                                 }
 
-                                sendingMessage.SetSingleContent(new SendingTextContent(translated));
-                                return new SendMessageApi(log).Post(sendingMessage);
+                                await client.PushMessage(webhookEvent.Source.UserId, translated);
                             }
                             break;
 
                         default:
-                            log.WriteLine("Not implemented contentType: " + lineMessage.ContentType);
+                            log.WriteLine("Not implemented event type: " + webhookEvent.Type);
                             break;
                     }
-
-                    return Task.FromResult((SendingMessageResponse)null);
-                })).Wait();
+                }
             }
         }
     }

@@ -1,24 +1,27 @@
-﻿using LineBotNet.Core.ApiClient;
-using LineBotNet.Core.Data;
-using LineBotNet.Core.Data.SendingMessageContents;
+﻿using LineMessaging;
 using Microsoft.Azure.WebJobs;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LineBotMessageWebJob
 {
     public class Functions
     {
-        public async static Task ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
+        private static readonly LineOAuthClient oAuthClient =
+            new LineOAuthClient(ConfigurationManager.AppSettings["ChannelId"], ConfigurationManager.AppSettings["ChannelSecret"]);
+
+        private static LineOAuthTokenResponse tokenResponse;
+
+        public static async Task ProcessQueueMessage([QueueTrigger("line-bot-workitems")] string message, TextWriter log)
         {
             log.WriteLine(message);
-            LineMessageObject data;
+            LineWebhookContent data;
             try
             {
-                data = JsonConvert.DeserializeObject<LineMessageObject>(message);
+                data = JsonConvert.DeserializeObject<LineWebhookContent>(message);
             }
             catch (Exception ex)
             {
@@ -26,35 +29,30 @@ namespace LineBotMessageWebJob
                 return;
             }
 
-            if (data?.Results != null)
+            if (data?.Events != null)
             {
-                foreach (var lineMessage in data.Results)
+                foreach (var webhookEvent in data.Events)
                 {
-                    if (lineMessage.Content != null)
+                    log.WriteLine("event type: " + webhookEvent.Type);
+                    switch (webhookEvent.Type)
                     {
-                        log.WriteLine("Content: " + string.Join(Environment.NewLine,
-                            lineMessage.Content.Select(x => $"{x.Key}={x.Value}")));
-                    }
-
-                    log.WriteLine("ContentType: " + lineMessage.ContentType);
-                    switch (lineMessage.ContentType)
-                    {
-                        case ContentType.Text:
-                            if (lineMessage.TextContent != null)
+                        case WebhookRequestEventType.Message:
+                            if (webhookEvent.Message.Type == MessageType.Text)
                             {
-                                log.WriteLine("text: " + lineMessage.TextContent.Text);
+                                log.WriteLine("text: " + webhookEvent.Message.Text);
 
-                                var sendingMessage = new SendingMessage();
+                                if (tokenResponse == null || tokenResponse.ExpiresIn < DateTime.Now.AddDays(-1))
+                                {
+                                    tokenResponse = await oAuthClient.GetAccessToken();
+                                }
 
-                                sendingMessage.AddTo(lineMessage.TextContent.From);
-                                sendingMessage.SetSingleContent(new SendingTextContent(lineMessage.TextContent.Text));
-
-                                await new SendMessageApi(log).Post(sendingMessage);
+                                var client = new LineMessagingClient(tokenResponse.AccessToken);
+                                await client.PushMessage(webhookEvent.Source.UserId, webhookEvent.Message.Text);
                             }
                             break;
 
                         default:
-                            log.WriteLine("Not implemented contentType: " + lineMessage.ContentType);
+                            log.WriteLine("Not implemented event type: " + webhookEvent.Type);
                             break;
                     }
                 }

@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LineMessaging, Version=1.1.1.0, Culture=neutral, PublicKeyToken=87b8bf75172142fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\LineMessaging.1.1.1\lib\net45\LineMessaging.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -37,40 +40,33 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiClient\GetMessageApi.cs" />
-    <Compile Include="ApiClient\LineApiClient.cs" />
     <Compile Include="ApiExceptions.cs" />
-    <Compile Include="ApiClient\PreviewMessageApi.cs" />
-    <Compile Include="ApiClient\SendMessageApi.cs" />
-    <Compile Include="ApiClient\UserProfileApi.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Configuration\AppSettingsBase.cs" />
-    <Compile Include="Data\Contact.cs" />
-    <Compile Include="Data\LineMessage.cs" />
-    <Compile Include="Data\ReceivingMessage.cs" />
-    <Compile Include="Data\ReceivingOperations.cs" />
-    <Compile Include="Data\RichMessage.cs" />
-    <Compile Include="Data\SendingMessage.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingAudioContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingContactContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingImageContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingLocationContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingRichMessageContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingMessageContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingStickerContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingTextContent.cs" />
-    <Compile Include="Data\SendingMessageContents\SendingVideoContent.cs" />
-    <Compile Include="Data\UserProfile.cs" />
     <Compile Include="GitHubApi\Data\GitHubSearchResult.cs" />
     <Compile Include="GitHubApi\GitHubSearchApi.cs" />
     <Compile Include="MicrosoftApi\AdmAccessToken.cs" />
