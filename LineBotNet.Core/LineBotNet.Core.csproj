@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LineMessaging, Version=1.1.1.0, Culture=neutral, PublicKeyToken=87b8bf75172142fe, processorArchitecture=MSIL">
-      <HintPath>..\packages\LineMessaging.1.1.1\lib\net45\LineMessaging.dll</HintPath>
+    <Reference Include="LineMessaging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=87b8bf75172142fe, processorArchitecture=MSIL">
+      <HintPath>..\packages\LineMessaging.1.1.2\lib\net45\LineMessaging.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
