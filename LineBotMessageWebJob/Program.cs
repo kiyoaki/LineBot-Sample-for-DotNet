@@ -1,17 +1,28 @@
-﻿using Microsoft.Azure.WebJobs;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace LineBotMessageWebJob
 {
-    // To learn more about Microsoft Azure WebJobs SDK, please see http://go.microsoft.com/fwlink/?LinkID=320976
     class Program
     {
-        // Please set the following connection strings in app.config for this WebJob to run:
-        // AzureWebJobsDashboard and AzureWebJobsStorage
-        static void Main()
+        static async Task Main()
         {
-            var host = new JobHost();
-            // The following code ensures that the WebJob will be running continuously
-            host.RunAndBlock();
+            var builder = new HostBuilder();
+            builder.ConfigureWebJobs(b =>
+            {
+                b.AddAzureStorageCoreServices();
+                b.AddAzureStorage();
+            });
+            builder.ConfigureLogging((context, b) =>
+            {
+                b.AddConsole();
+            });
+            var host = builder.Build();
+            using (host)
+            {
+                await host.RunAsync();
+            }
         }
     }
 }
