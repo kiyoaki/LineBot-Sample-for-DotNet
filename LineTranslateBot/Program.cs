@@ -12,11 +12,8 @@ namespace LineBotMessageWebJob
             builder.ConfigureWebJobs(b =>
             {
                 b.AddAzureStorageCoreServices();
-                b.AddAzureStorage();
-            });
-            builder.ConfigureLogging((context, b) =>
-            {
-                b.AddConsole();
+                b.AddAzureStorageBlobs();
+                b.AddAzureStorageQueues();
             });
             var host = builder.Build();
             using (host)
