@@ -95,7 +95,7 @@ namespace LineBotNet.Core.GitHubApi
                             "",
                             $"StackTrace: {ex.StackTrace}"));
 
-                return new[] { "Error has occuerd." };
+                return new[] { "Error has occurred." };
             }
         }
     }

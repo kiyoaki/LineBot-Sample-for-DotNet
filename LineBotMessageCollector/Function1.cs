@@ -22,19 +22,19 @@ namespace LineBotMessageCollector
             StringValues headers;
             if (!req.Headers.TryGetValue("X-Line-Signature", out headers))
             {
-                return null;
+                return new BadRequestObjectResult("Missing X-Line-Signature header");
             }
 
             var channelSignature = headers.FirstOrDefault();
             if (channelSignature == null)
             {
-                return null;
+                return new BadRequestObjectResult("Empty X-Line-Signature header");
             }
 
             if (string.IsNullOrEmpty(LineSettings.ChannelSecret))
             {
                 log.LogWarning("Please set ChannelSecret in App Settings");
-                return null;
+                return new StatusCodeResult(500);
             }
 
             var secret = Encoding.UTF8.GetBytes(LineSettings.ChannelSecret);
@@ -46,7 +46,7 @@ namespace LineBotMessageCollector
                 var signature = Convert.ToBase64String(hmacsha256.ComputeHash(body));
                 if (channelSignature != signature)
                 {
-                    return null;
+                    return new UnauthorizedResult();
                 }
             }
 
