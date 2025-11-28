@@ -12,7 +12,7 @@ namespace LineBotNet.Core
         {
             using (var httpClient = new HttpClient())
             {
-                var uri = "http://api.microsofttranslator.com/v2/Http.svc/Translate?text=" + HttpUtility.UrlEncode(text) + "&from=" + from + "&to=" + to;
+                var uri = "https://api.microsofttranslator.com/v2/Http.svc/Translate?text=" + HttpUtility.UrlEncode(text) + "&from=" + from + "&to=" + to;
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AdmAuthentication.Instance.AccessToken.Token);
                 var response = httpClient.GetAsync(uri).Result;
                 if (!response.IsSuccessStatusCode)

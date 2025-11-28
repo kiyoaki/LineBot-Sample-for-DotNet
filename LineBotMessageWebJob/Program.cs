@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace LineBotMessageWebJob
@@ -11,7 +10,6 @@ namespace LineBotMessageWebJob
             var builder = new HostBuilder();
             builder.ConfigureWebJobs(b =>
             {
-                b.AddAzureStorageCoreServices();
                 b.AddAzureStorageBlobs();
                 b.AddAzureStorageQueues();
             });

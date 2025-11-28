@@ -51,7 +51,7 @@ namespace LineBotNet.Core.MicrosoftApi
         private void RenewAccessToken()
         {
             AccessToken = GetToken().Result;
-            Console.WriteLine($"Renewed token for user: {_clientId} is: {AccessToken.Token}");
+            Console.WriteLine($"Renewed token for user: {_clientId}");
         }
 
         private async Task<AdmAccessToken> GetToken()
